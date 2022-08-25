@@ -30,5 +30,3 @@ export const users: User[] = [
         updated_date: dayjs().toDate()        
     }
 ]
-
-// console.log(teams, users)

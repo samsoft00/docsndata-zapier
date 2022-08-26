@@ -1,0 +1,17 @@
+### register a model;
+POST http://localhost:8081/api/v1/model 
+content-type: application/json
+
+{}
+
+### get all models
+GET http://localhost:8081/api/v1/model HTTP/1.1
+Authorization: Basic b11d89646088d87408ebfa759a10bd8a:password
+
+### get a model schema
+GET http://localhost:8081/api/v1/model/0c82a54f22f775a3ed8b97b2dea74036/schema HTTP/1.1
+Authorization: Basic b11d89646088d87408ebfa759a10bd8a:password
+
+### get a model data
+GET http://localhost:8081/api/v1/model/0c82a54f22f775a3ed8b97b2dea74036/data HTTP/1.1
+Authorization: Basic b11d89646088d87408ebfa759a10bd8a:password

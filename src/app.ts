@@ -34,7 +34,7 @@ app.use(express.json());
  */
 app.get('/', (req, res) => res.json({ message: 'Welcome to Zapier Docnsdata API' }));
 app.use(acl())
-app.use('/v1/', routes);
+app.use('/api/v1/', routes);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

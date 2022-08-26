@@ -1,3 +1,8 @@
+### Test Auth
+GET http://localhost:8081/api/v1/user 
+Authorization: Basic b11d89646088d87408ebfa759a10bd8a:password
+
+
 ### register a model;
 POST http://localhost:8081/api/v1/model 
 content-type: application/json

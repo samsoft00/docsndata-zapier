@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import {teams} from './user.db';
+import hat from 'hat';
 
 const modelID = '0c82a54f22f775a3ed8b97b2dea74036';
 
@@ -37,7 +38,7 @@ export const modelDb: DnDModel[] = [
         updated_date: dayjs().toDate()        
     },
     { 
-        id: '', 
+        id: hat(), 
         name: 'Student',
         teamId: teams[0].id,
         description: 'A simple model for students',

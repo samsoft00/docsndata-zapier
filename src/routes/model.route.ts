@@ -47,8 +47,8 @@ router.get('/', (req: Request, res: Response) => {
 })
 
 // return schema of a model
-router.get('/:modelID/schema', (req: Request, res: Response) => {
-    const schemas = modelSchemas.filter(m => m.modelId === req.params.modelID)
+router.get('/:modelId/schema', (req: Request, res: Response) => {
+    const schemas = modelSchemas.filter(m => m.modelId === req.params.modelId)
 
     return res.status(200).json({
         data: schemas,
@@ -60,11 +60,13 @@ router.get('/:modelID/schema', (req: Request, res: Response) => {
 // return model data ~ where modellID = ? and eventID = ?
 // https://docsndata-zapier.herokuapp.com/api/v1/model/:project_id/event/:event_id/record
 router.get('/:modelId/event/:eventId/records', (req: Request, res: Response) => {
-    const { modelID, eventID } = req.params;
+    console.log(req.params)
+    const { modelId, eventId } = req.params;
     const { teamId } = req.user
 
-    const payload = modelData
-        .filter(m => m.model_id === modelID)
+    const payload = modelData.filter(m => m.model_id === modelId)
+    
+    console.log(payload)
 
     return res.status(200).json({
         data: payload,
@@ -73,13 +75,62 @@ router.get('/:modelId/event/:eventId/records', (req: Request, res: Response) => 
     });
 })
 
-// return all events under model
-// -> modelID
-router.get('/:modelID/events', (req: Request, res: Response) => {
-    const { modelID } = req.params;
+// Create or Update model record
+router.put('/:modelId/record', (req: Request, res: Response) => {
+    const { modelId } = req.params;
+
+    // Check if model exist
+    const modelExist = modelDb.filter(m => m.id === modelId)[0];
+    if (!modelExist) {
+        return res.status(400).json({ 
+            message: 'Select project/model does not exist'
+        })
+    }
+
+    const {id, ...data } = req.body;
+    if (typeof id === 'undefined') {
+        return res.status(400).json({ message: 'Id is required' })
+    }
+
+    // find record by ID
+    const existRecord = modelData.filter(m => m.id === id)[0]
+    if (existRecord) {
+        // update record
+        const payload = {
+            ...existRecord,
+            ...data,
+            updated_date: dayjs().toDate()
+        }
+        modelData.splice(modelData.indexOf(existRecord), 1, payload)
+    } else {
+        // create record
+        const payload = {
+            id: hatId(),
+            model_id: modelId,
+            ...data,
+            created_date: dayjs().toDate(),
+            updated_date: dayjs().toDate()
+        }
+        modelData.push(payload)
+    }
 
     return res.status(200).json({
-        data: eventDb.filter(e => e.modelId === modelID),
+        data: {},
+        statusCode: 200,
+        message: 'Created successful'
+    })
+})
+
+// return all events under model
+// -> modelID
+router.get('/:modelId/events', (req: Request, res: Response) => {
+    const { modelId } = req.params;
+    const events = eventDb.filter(e => e.modelId === modelId);
+    
+    console.log(modelId, events)
+
+    return res.status(200).json({
+        data: events,
         statusCode: 200,
         message: 'Events retrieved'
     })

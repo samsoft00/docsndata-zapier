@@ -78,6 +78,7 @@ router.get('/:modelId/event/:eventId/records', (req: Request, res: Response) => 
 // Create or Update model record
 router.put('/:modelId/record', (req: Request, res: Response) => {
     const { modelId } = req.params;
+    console.log(modelId, req.body)
 
     // Check if model exist
     const modelExist = modelDb.filter(m => m.id === modelId)[0];
@@ -87,7 +88,7 @@ router.put('/:modelId/record', (req: Request, res: Response) => {
         })
     }
 
-    const {id, ...data } = req.body;
+    const {id, project_id, ...data } = req.body;
     if (typeof id === 'undefined') {
         return res.status(400).json({ message: 'Id is required' })
     }

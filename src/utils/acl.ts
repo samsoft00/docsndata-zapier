@@ -8,6 +8,7 @@ export default () => {
 
         const WRONG_CREDENTIALS = "Wrong authentication credentials"
         const user = auth(req)
+        console.log(user)
         
         if (!user || !user.name) {
             return res.status(401).set('WWW-Authenticate', 'Basic realm="API", charset="UTF-8"')

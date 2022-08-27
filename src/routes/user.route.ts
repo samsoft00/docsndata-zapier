@@ -4,9 +4,9 @@ const router = Router();
 
 // Return user payload
 router.get('/', (req: Request, res: Response) => {
-    return res.status(201).json({
+    return res.status(200).json({
         data: req.user,
-        statusCode: 201,
+        statusCode: 200,
         message: 'User retrieved'
     });    
 })

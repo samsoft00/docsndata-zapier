@@ -4,7 +4,7 @@ import hatId from 'hat'
 
 import { modelDb, modelSchemas, modelData } from '../db/model.db';
 import dayjs from 'dayjs';
-import { eventDb } from 'db/event.db';
+import { eventDb } from '../db/event.db';
 
 const router = Router();
 
@@ -28,9 +28,9 @@ router.post('/', (req: Request, res: Response) => {
     };
     modelDb.push(payload)
     
-    return res.status(201).json({
+    return res.status(200).json({
         data: modelDb[modelDb.length - 1],
-        statusCode: 201,
+        statusCode: 200,
         message: 'Model created'
     });
 });
@@ -39,9 +39,9 @@ router.post('/', (req: Request, res: Response) => {
 router.get('/', (req: Request, res: Response) => {
     const models = modelDb.filter(m => m.teamId === req.user.teamId)
 
-    return res.status(201).json({
+    return res.status(200).json({
         data: models,
-        statusCode: 201,
+        statusCode: 200,
         message: 'Models retrieved'
     });    
 })
@@ -50,9 +50,9 @@ router.get('/', (req: Request, res: Response) => {
 router.get('/:modelID/schema', (req: Request, res: Response) => {
     const schemas = modelSchemas.filter(m => m.modelId === req.params.modelID)
 
-    return res.status(201).json({
+    return res.status(200).json({
         data: schemas,
-        statusCode: 201,
+        statusCode: 200,
         message: 'Models schema retrieved'
     });      
 })
@@ -66,9 +66,9 @@ router.get('/:modelId/event/:eventId/records', (req: Request, res: Response) => 
     const payload = modelData
         .filter(m => m.model_id === modelID)
 
-    return res.status(201).json({
+    return res.status(200).json({
         data: payload,
-        statusCode: 201,
+        statusCode: 200,
         message: 'Models data retrieved'
     });
 })
@@ -80,7 +80,7 @@ router.get('/:modelID/events', (req: Request, res: Response) => {
 
     return res.status(200).json({
         data: eventDb.filter(e => e.modelId === modelID),
-        statusCode: 201,
+        statusCode: 200,
         message: 'Events retrieved'
     })
 })

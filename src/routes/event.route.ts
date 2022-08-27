@@ -10,7 +10,7 @@ const router = Router();
 router.get('/', (req: Request, res: Response) => {
     return res.status(200).json({
         data: eventDb,
-        statusCode: 201,
+        statusCode: 200,
         message: 'All models events retrieved'        
     })
 })
@@ -20,7 +20,7 @@ router.get('/:modelID', (req: Request, res: Response) => {
 
     return res.status(200).json({
         data: payload,
-        statusCode: 201,
+        statusCode: 200,
         message: 'Event retrieved'
     })
 })

@@ -16,10 +16,12 @@ router.get('/', (req: Request, res: Response) => {
 })
 
 router.get('/:modelID', (req: Request, res: Response) => {
+    const payload = eventDb.filter(m => m.modelId === req.params.modelID)
+
     return res.status(200).json({
-        data: eventDb,
+        data: payload,
         statusCode: 201,
-        message: 'Models retrieved'        
+        message: 'Event retrieved'
     })
 })
 

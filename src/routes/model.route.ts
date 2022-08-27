@@ -4,6 +4,7 @@ import hatId from 'hat'
 
 import { modelDb, modelSchemas, modelData } from '../db/model.db';
 import dayjs from 'dayjs';
+import { eventDb } from 'db/event.db';
 
 const router = Router();
 
@@ -74,6 +75,14 @@ router.get('/:modelId/event/:eventId/records', (req: Request, res: Response) => 
 
 // return all events under model
 // -> modelID
-router.get('/:modelID/events', (req: Request, res: Response) => {})
+router.get('/:modelID/events', (req: Request, res: Response) => {
+    const { modelID } = req.params;
+
+    return res.status(200).json({
+        data: eventDb.filter(e => e.modelId === modelID),
+        statusCode: 201,
+        message: 'Events retrieved'
+    })
+})
 
 export default router;

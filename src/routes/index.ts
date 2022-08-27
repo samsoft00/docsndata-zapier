@@ -8,6 +8,6 @@ const routes = Router();
 
 routes.use('/user', UserRoute);
 routes.use('/model', ModelRoute);
-routes.use('/event', EventRoute);
+routes.use('/events', EventRoute);
 
 export default routes;

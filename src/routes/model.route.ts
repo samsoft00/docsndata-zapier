@@ -56,8 +56,14 @@ router.get('/:modelID/schema', (req: Request, res: Response) => {
     });      
 })
 
-router.get('/:modelID/data', (req: Request, res: Response) => {
-    const payload = modelData.filter(m => m.model_id === req.params.modelID)
+// return model data ~ where modellID = ? and eventID = ?
+// https://docsndata-zapier.herokuapp.com/api/v1/model/:project_id/event/:event_id/record
+router.get('/:modelId/event/:eventId/records', (req: Request, res: Response) => {
+    const { modelID, eventID } = req.params;
+    const { teamId } = req.user
+
+    const payload = modelData
+        .filter(m => m.model_id === modelID)
 
     return res.status(201).json({
         data: payload,
@@ -65,5 +71,9 @@ router.get('/:modelID/data', (req: Request, res: Response) => {
         message: 'Models data retrieved'
     });
 })
+
+// return all events under model
+// -> modelID
+router.get('/:modelID/events', (req: Request, res: Response) => {})
 
 export default router;

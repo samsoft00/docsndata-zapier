@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import randomStr from 'randomstring';
 
-interface Team {
+export interface Team {
     id: string;
     name: string;
 }
 
-interface User {
+export interface User {
     id: string
     email: string
     name?: string

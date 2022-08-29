@@ -7,26 +7,30 @@ export default () => {
     return async (req: Request, res: Response, next: NextFunction) => {
 
         const WRONG_CREDENTIALS = "Wrong authentication credentials"
-        const user = auth(req)
-        console.log(user)
+        const authCred = auth(req)
+        console.log(authCred)
         
-        if (!user || !user.name) {
+        if (!authCred || !authCred.name) {
             return res.status(401).set('WWW-Authenticate', 'Basic realm="API", charset="UTF-8"')
             .json({ error: 'Authentication missing' })
         }
         
         // Check team exists
-        const checkTeam = teams.find(team => team.id === user.name)
-        if (!checkTeam) { return res.status(401).json({ error: WRONG_CREDENTIALS }) }
+        const team = teams.find(team => team.id === authCred.name)
+        if (!team) { return res.status(401).json({ error: WRONG_CREDENTIALS }) }
 
-        const userFound = users.find(u => u.teamId === user.name)
-        if (!userFound) { return res.status(401).json({ error: WRONG_CREDENTIALS }) }
+        const user = users.find(u => u.teamId === authCred.name)
+        if (!user) { return res.status(401).json({ error: WRONG_CREDENTIALS }) }
 
         req.user = {
-            id: userFound.id,
-            email: userFound.email,
-            name: userFound.name,
-            teamId: userFound.teamId
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            teamId: user.teamId,
+            team: {
+                id: team.id,
+                name: team.name
+            }
         }
 
         next()

@@ -1,3 +1,5 @@
+import { Team } from "db/user.db"
+
 declare module 'express' {
     interface Request {
       user: {
@@ -5,6 +7,7 @@ declare module 'express' {
         email: string
         name?: string
         teamId: string
+        team?: Partial<Team>
       }
     }
   }

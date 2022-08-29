@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import randomStr from 'randomstring';
 
 interface Team {
     id: string;
@@ -21,7 +22,7 @@ export const teams: Team[] = [
 
 export const users: User[] = [
     {
-        id: '98b669b3801be7fc9d3126d25b1a2538',
+        id: randomStr.generate(12),
         name: 'Mike Hogan',
         email: 'polygon@xender.io',
         teamId: teams[0].id,

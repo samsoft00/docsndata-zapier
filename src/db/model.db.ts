@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import {teams} from './user.db';
-import hat from 'hat';
+import randomStr from 'randomstring'
 
-const modelID = '0c82a54f22f775a3ed8b97b2dea74036';
+const modelID = '83hUTiW7tRwF';
 
 interface DnDModel {
     id: string;
@@ -38,7 +38,7 @@ export const modelDb: DnDModel[] = [
         updated_date: dayjs().toDate()        
     },
     { 
-        id: hat(), 
+        id: randomStr.generate(12), 
         name: 'Student',
         teamId: teams[0].id,
         description: 'A simple model for students',
@@ -60,7 +60,7 @@ export const modelSchemas: DnDModelSchema[] = [
     { modelId: modelID, key: 'created_at', label: 'Created Date', type: 'string', required: true },
     { modelId: modelID, key: 'updated_at', label: 'Updated Date', type: 'string' },
     { 
-        modelId: '0c82a54f22f775a3ed8b97b2dea74036', 
+        modelId: 'AfYDEIpVGFRE', 
         key: 'first_name', 
         label: 'First Name', 
         type: 'string', 
